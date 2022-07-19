@@ -1,7 +1,4 @@
 # A Linked Lisy Node
-from unittest import result
-
-
 class Node:
     # Node constructor just have data and point to next node (a pointrer)
     def __init__(self, data, next = None):
@@ -9,6 +6,7 @@ class Node:
         self.next = next
 # check nodes from left and right to check if Palindrome or not        
 def checkPalindrome(left, right):
+    
     # base case
     # consider none of nodes are remind
     # end of the nodes
@@ -17,7 +15,8 @@ def checkPalindrome(left, right):
     
     # consider moving from left to right
     # so the next node would be the right node
-    val, left = checkPalindrome(left, right = next)
+    # NOTE
+    val, left = checkPalindrome(left, right.next)
     
     # the result is true when left data is equal to right data
     result = val and (left.data == right.data)
@@ -35,7 +34,7 @@ def checkPlain(head):
 if __name__ == '__main__':
     
     # input keys
-    keys = [1, 3, 5, 3, 1] # True
+    keys = [1,2,2,1]
     
     head = None
     
