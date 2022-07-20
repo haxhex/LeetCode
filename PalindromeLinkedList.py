@@ -1,49 +1,36 @@
-# A Linked Lisy Node
-class Node:
-    # Node constructor just have data and point to next node (a pointrer)
-    def __init__(self, data, next = None):
-        self.data = data
+from typing import Optional
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
         self.next = next
-# check nodes from left and right to check if Palindrome or not        
-def checkPalindrome(left, right):
-    
-    # base case
-    # consider none of nodes are remind
-    # end of the nodes
-    if right is None:
-        return True, left
-    
-    # consider moving from left to right
-    # so the next node would be the right node
-    # NOTE
-    val, left = checkPalindrome(left, right.next)
-    
-    # the result is true when left data is equal to right data
-    result = val and (left.data == right.data)
-    
-    # move the pointer from left
-    left = left.next
-    
-    # left just use when see all nodes (ath the end of array)
-    return result, left
-    
-# func to check the linked list is a palindrome pr not
-def checkPlain(head):
-    return checkPalindrome(head, head)[0]
 
-if __name__ == '__main__':
-    
-    # input keys
-    keys = [1,2,2,1]
-    
-    head = None
-    
-    for i in  reversed(range(len(keys))):
-        head = Node(keys[i], head)
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        flag = 0
+        f = head
+        l_c=0
+        def traverse(r,r_c):
+            nonlocal flag
+            nonlocal f
+            nonlocal l_c
+            if r is None:
+                return 0
+            traverse(r.next,r_c+1)
+            
+            if(f.val == r.val and l_c < r_c):
+                f=f.next
+                l_c+=1
+
+            elif f.val != r.val and l_c < r_c:
+                flag = 1                
         
-    if checkPlain(head):
-        print("is palindrome")
-    else:
-        print("not palindrome")
+        traverse(head,0)
+        if(flag == 0):
+            return True
+        
+        return False
+    
 
-
+print(Solution().isPalindrome([1, 2, 3, 2, 1]))
